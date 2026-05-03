@@ -57,7 +57,9 @@ html {
 
 body {
   font-family: var(--font);
-  background: var(--bg-primary);
+  background: linear-gradient(-45deg, #0f172a, #1e1b4b, #0f172a, #172554);
+  background-size: 400% 400%;
+  animation: gradientBg 15s ease infinite;
   color: var(--text-primary);
   line-height: 1.6;
   min-height: 100vh;
@@ -65,6 +67,12 @@ body {
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes gradientBg {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* ---------- Accessibility ---------- */
@@ -95,10 +103,10 @@ header {
 }
 
 .header-inner h1 {
-  font-size: 2.25rem;
-  font-weight: 700;
+  font-size: 3rem;
+  font-weight: 800;
   letter-spacing: -0.025em;
-  background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent) 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -159,15 +167,23 @@ progress#step-progress::-webkit-progress-bar {
   border-radius: 999px;
 }
 
+@keyframes shimmer {
+  to { background-position: -200% 0; }
+}
+
 progress#step-progress::-webkit-progress-value {
-  background: linear-gradient(90deg, var(--accent), #60a5fa);
+  background: linear-gradient(90deg, #3b82f6, #06b6d4, #3b82f6);
+  background-size: 200% 100%;
   border-radius: 999px;
+  animation: shimmer 2s linear infinite;
   transition: width var(--duration) var(--ease);
 }
 
 progress#step-progress::-moz-progress-bar {
-  background: linear-gradient(90deg, var(--accent), #60a5fa);
+  background: linear-gradient(90deg, #3b82f6, #06b6d4, #3b82f6);
+  background-size: 200% 100%;
   border-radius: 999px;
+  animation: shimmer 2s linear infinite;
 }
 
 /* ---------- Step Card ---------- */
@@ -179,8 +195,9 @@ progress#step-progress::-moz-progress-bar {
   margin-bottom: 1.5rem;
   animation: slideIn var(--duration) var(--ease);
   box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.25),
-    0 0 0 1px rgba(59, 130, 246, 0.06);
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(59, 130, 246, 0.2),
+    0 0 0 1px rgba(59, 130, 246, 0.2);
 }
 
 @keyframes slideIn {
@@ -366,13 +383,13 @@ progress#step-progress::-moz-progress-bar {
 
 #user-question {
   flex: 1;
-  padding: 0.7rem 1rem;
+  padding: 0.7rem 1.25rem;
   font-family: var(--font);
   font-size: 0.95rem;
   color: var(--text-primary);
   background: var(--bg-input);
   border: 1px solid rgba(148, 163, 184, 0.15);
-  border-radius: var(--radius-sm);
+  border-radius: 999px;
   transition: border-color var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
 }
 
@@ -393,7 +410,7 @@ progress#step-progress::-moz-progress-bar {
   color: #fff;
   background: var(--accent);
   border: none;
-  border-radius: var(--radius-sm);
+  border-radius: 999px;
   cursor: pointer;
   transition: background var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
   white-space: nowrap;
@@ -427,12 +444,13 @@ progress#step-progress::-moz-progress-bar {
   font-size: 0.95rem;
   line-height: 1.7;
   color: var(--text-secondary);
-  animation: fadeIn 0.3s var(--ease);
+  animation: fadeInPulse 0.5s var(--ease);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes fadeInPulse {
+  0% { opacity: 0; transform: scale(0.98); }
+  50% { opacity: 1; transform: scale(1.01); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 /* Loading State */
