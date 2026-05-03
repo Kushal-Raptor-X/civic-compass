@@ -33,7 +33,7 @@ export async function askGemini(stepTitle, userQuestion) {
     }
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-3.1-flash-lite-preview' });
 
     const systemPrompt = `You are Civic Compass, a friendly election education assistant. Answer ONLY questions about the election step: ${stepTitle}. Keep answers under 100 words. Be clear and neutral.`;
 
