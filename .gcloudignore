@@ -1,0 +1,5 @@
+.git
+.gitignore
+node_modules/
+dist/
+# .env is NOT ignored here so Cloud Build can use it during 'vite build'
