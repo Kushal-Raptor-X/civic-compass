@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Civic Compass - Interactive Election Process Guide" />
+  <title>Civic Compass 🧭 — Election Process Guide</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <h1><span class="header-icon" aria-hidden="true">🧭</span> Civic Compass</h1>
+      <p class="tagline">Your GPS through the election process — step&nbsp;by&nbsp;step.</p>
+    </div>
+  </header>
+
+  <main id="app">
+    <!-- Progress Navigation -->
+    <nav aria-label="Election steps progress">
+      <div class="progress-wrapper">
+        <span id="progress-label" class="progress-text">Step 1 of 6</span>
+        <progress
+          id="step-progress"
+          value="1"
+          max="6"
+          aria-valuenow="1"
+          aria-valuemin="1"
+          aria-valuemax="6"
+          aria-label="Step progress"
+        ></progress>
+      </div>
+    </nav>
+
+    <!-- Step Card -->
+    <section id="step-card" aria-live="polite" aria-atomic="true">
+      <!-- Rendered dynamically by ui.js -->
+    </section>
+
+    <!-- Step Navigation Buttons -->
+    <div class="step-nav">
+      <button id="prev-btn" type="button" aria-label="Go to previous step" disabled>
+        ← Previous
+      </button>
+      <button id="next-btn" type="button" aria-label="Go to next step">
+        Next →
+      </button>
+    </div>
+
+    <!-- AI Panel -->
+    <section id="ai-panel" aria-label="Ask AI assistant">
+      <h2><span aria-hidden="true">🤖</span> Ask the AI Assistant</h2>
+      <form id="ask-form">
+        <label for="user-question">Ask about this step</label>
+        <div class="input-row">
+          <input
+            id="user-question"
+            type="text"
+            placeholder="e.g. What documents do I need?"
+            maxlength="500"
+            autocomplete="off"
+            aria-describedby="question-hint"
+          />
+          <button type="submit" aria-label="Submit question to AI">Ask</button>
+        </div>
+        <span id="question-hint" class="sr-only">
+          Ask any question about the current election step
+        </span>
+      </form>
+      <div
+        id="ai-response"
+        aria-live="polite"
+        aria-atomic="true"
+        role="status"
+      ></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Powered by <strong>Google Gemini</strong> &middot; &copy; <span id="footer-year"></span> Civic Compass</p>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
