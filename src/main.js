@@ -9,6 +9,18 @@ import {
 import { askGemini, sanitizeInput } from './gemini.js';
 
 /**
+ * Safe GA4 event wrapper — silently no-ops if gtag is unavailable
+ * (e.g. dev environment with no measurement ID configured).
+ * @param {string} eventName
+ * @param {Object} [params]
+ */
+function trackEvent(eventName, params = {}) {
+  if (typeof gtag === 'function') {
+    gtag('event', eventName, params);
+  }
+}
+
+/**
  * Application state — single source of truth.
  */
 const state = {
@@ -71,10 +83,21 @@ async function handleAskSubmit(e) {
 
   const currentStep = steps[state.currentStepIndex];
 
+  // Track question submission
+  trackEvent('ai_question_asked', {
+    step_number: state.currentStepIndex + 1,
+    step_title: currentStep.title,
+  });
+
   try {
     showLoading(true);
     const answer = await askGemini(currentStep.title, sanitized);
     renderAIResponse(answer);
+    // Track successful response
+    trackEvent('ai_response_received', {
+      step_number: state.currentStepIndex + 1,
+      step_title: currentStep.title,
+    });
   } catch {
     renderError('Something went wrong. Please try again.');
   } finally {
@@ -95,6 +118,12 @@ function init() {
   // Render the first step
   updateView();
 
+  // Track initial page view
+  trackEvent('page_view', {
+    page_title: document.title,
+    page_location: window.location.href,
+  });
+
   // Wire up navigation
   const prevBtn = document.getElementById('prev-btn');
   const nextBtn = document.getElementById('next-btn');
@@ -104,6 +133,10 @@ function init() {
       if (state.currentStepIndex > 0) {
         state.currentStepIndex--;
         updateView();
+        trackEvent('step_navigation', {
+          direction: 'prev',
+          step_number: state.currentStepIndex + 1,
+        });
       }
     });
   }
@@ -113,6 +146,10 @@ function init() {
       if (state.currentStepIndex < steps.length - 1) {
         state.currentStepIndex++;
         updateView();
+        trackEvent('step_navigation', {
+          direction: 'next',
+          step_number: state.currentStepIndex + 1,
+        });
       }
     });
   }

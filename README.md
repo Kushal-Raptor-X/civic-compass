@@ -58,6 +58,7 @@ If the Gemini API is unavailable (missing key, network error, quota exceeded), t
 | **Google Gemini API** | AI-powered Q&A responses scoped to each election step |
 | **Google Fonts** | Inter typeface (weights 400, 600, 700) for clean typography |
 | **Firebase Hosting** | Production deployment with SPA rewrites and security headers |
+| **Google Analytics 4** | Page view and user interaction tracking (`page_view`, `step_navigation`, `ai_question_asked`, `ai_response_received`) via `VITE_GA_MEASUREMENT_ID` |
 
 ## Architecture
 
